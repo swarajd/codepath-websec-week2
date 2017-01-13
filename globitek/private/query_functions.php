@@ -45,7 +45,26 @@
   }
 
   function validate_state($state, $errors=array()) {
-    // TODO add validations
+    if (is_blank($state['name'])) {
+      $errors[] = "Name cannot be blank.";
+    } elseif (!has_length($state['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($state['code'])) {
+      $errors[] = "Code cannot be blank.";
+    } elseif (!has_length($state['code'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Code must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($state['country_id'])) {
+      $errors[] = "Country ID cannot be blank.";
+    } elseif (!has_length($state['country_id'], array('min' => 1, 'max' => 255))) {
+      $errors[] = "Country ID must be between 1 and 255 characters.";
+    } elseif (!has_valid_countryid_format($state['country_id'])) {
+      //MY CUSTOM VALIDATION
+      $errors[] = "Country ID must be a valid format.";
+    }
 
     return $errors;
   }
@@ -60,7 +79,14 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO states ";
+    $sql .= "(name, code, country_id) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $state['name'] . "',";
+    $sql .= "'" . $state['code'] . "',";
+    $sql .= "'" . $state['country_id'] . "',";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -84,7 +110,13 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE states SET ";
+    $sql .= "name='" . $state['name'] . "', ";
+    $sql .= "code='" . $state['code'] . "', ";
+    $sql .= "country_id='" . $state['country_id'] . "', ";
+    $sql .= "WHERE id='" . $state['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_state statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -131,7 +163,23 @@
   }
 
   function validate_territory($territory, $errors=array()) {
-    // TODO add validations
+    if (is_blank($territory['name'])) {
+      $errors[] = "Name cannot be blank.";
+    } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($territory['state_id'])) {
+      $errors[] = "State ID cannot be blank.";
+    } elseif (!has_length($territory['state_id'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "State ID must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($territory['position'])) {
+      $errors[] = "Position cannot be blank.";
+    } elseif (!has_length($territory['position'], array('min' => 1, 'max' => 255))) {
+      $errors[] = "Position must be between 1 and 255 characters.";
+    }
 
     return $errors;
   }
@@ -146,7 +194,14 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO territories ";
+    $sql .= "(name, state_id, position) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $territory['name'] . "',";
+    $sql .= "'" . $territory['state_id'] . "',";
+    $sql .= "'" . $territory['position'] . "',";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -170,7 +225,13 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE territories SET ";
+    $sql .= "name='" . $territory['name'] . "', ";
+    $sql .= "state_id='" . $territory['state_id'] . "', ";
+    $sql .= "position='" . $territory['position'] . "', ";
+    $sql .= "WHERE id='" . $territory['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
     // For update_territory statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -221,7 +282,33 @@
   }
 
   function validate_salesperson($salesperson, $errors=array()) {
-    // TODO add validations
+    if (is_blank($salesperson['first_name'])) {
+      $errors[] = "First name cannot be blank.";
+    } elseif (!has_length($salesperson['first_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "First name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['last_name'])) {
+      $errors[] = "Last name cannot be blank.";
+    } elseif (!has_length($salesperson['last_name'], array('min' => 2, 'max' => 255))) {
+      $errors[] = "Last name must be between 2 and 255 characters.";
+    }
+
+    if (is_blank($salesperson['phone'])) {
+      $errors[] = "Phone number cannot be blank.";
+    } elseif (!has_length($salesperson['phone'], array('min' => 1, 'max' => 255))) {
+      $errors[] = "Phone number must be less than 255 characters.";
+    } elseif (!has_valid_phone_format($salesperson['phone'])) {
+      $errors[] = "Phone number must be a valid format.";
+    }
+
+    if (is_blank($salesperson['email'])) {
+      $errors[] = "Email cannot be blank.";
+    } elseif (!has_length($salesperson['email'], array('min' => 1, 'max' => 255))) {
+      $errors[] = "Email must be less than 255 characters.";
+    } elseif (!has_valid_email_format($salesperson['email'])) {
+      $errors[] = "Email must be a valid format.";
+    }
 
     return $errors;
   }
@@ -236,7 +323,15 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "INSERT INTO salespeople ";
+    $sql .= "(first_name, last_name, phone, email) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $salesperson['first_name'] . "',";
+    $sql .= "'" . $salesperson['last_name'] . "',";
+    $sql .= "'" . $salesperson['phone'] . "',";
+    $sql .= "'" . $salesperson['email'] . "'";
+    $sql .= ");";
+
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {
@@ -260,7 +355,15 @@
       return $errors;
     }
 
-    $sql = ""; // TODO add SQL
+    $sql = "UPDATE salespeople SET ";
+    $sql .= "first_name='" . $salesperson['first_name'] . "', ";
+    $sql .= "last_name='" . $salesperson['last_name'] . "', ";
+    $sql .= "phone='" . $salesperson['phone'] . "', ";
+    $sql .= "email='" . $salesperson['email'] . "' ";
+    $sql .= "WHERE id='" . $salesperson['id'] . "' ";
+    $sql .= "LIMIT 1;";
+
+
     // For update_salesperson statments, $result is just true/false
     $result = db_query($db, $sql);
     if($result) {

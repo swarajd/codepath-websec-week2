@@ -26,4 +26,12 @@
     return strpos($value, '@') !== false;
   }
 
+  function has_valid_phone_format($value) {
+    return preg_match('/^[0-9()\- ]+$/', $value) === 1;
+  }
+
+  function has_valid_countryid_format($value) {
+    return preg_match('/^[0-9]+$/', $value) === 1;
+  }
+
 ?>
