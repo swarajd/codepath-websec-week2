@@ -18,7 +18,7 @@ if(is_post_request()) {
   if(isset($_POST['email'])) { $salesperson['email'] = h($_POST['email']); }
 
   $result = insert_salesperson($salesperson);
-  if($result === true) {
+  if ($result === true) {
     $new_id = db_insert_id($db);
     redirect_to('show.php?id=' . u($new_id));
   } else {

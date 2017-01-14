@@ -16,7 +16,7 @@ $state = db_fetch_assoc($state_result);
 <div id="main-content">
   <a href="index.php">Back to States List</a><br />
 
-  <h1>State: <?php echo $state['name']; ?></h1>
+  <h1>State: <?php echo $state; ?></h1>
 
   <?php
     echo "<table id=\"state\">";
@@ -40,7 +40,7 @@ $state = db_fetch_assoc($state_result);
 
     <h2>Territories</h2>
     <br />
-    <a href="../territories/new.php">Add a Territory</a><br />
+    <a href="../territories/new.php?state_id=<?php echo u(h($state['id'])) ?>">Add a Territory</a><br />
 
 <?php
     $territory_result = find_territories_for_state_id($state['id']);

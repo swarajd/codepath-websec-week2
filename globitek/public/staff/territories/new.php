@@ -1,10 +1,14 @@
 <?php
 require_once('../../../private/initialize.php');
 
+if(!isset($_GET['state_id'])) {
+  redirect_to('index.php');
+}
+
 $errors = array();
 $territory = array(
   'name' => '',
-  'state_id' => '',
+  'state_id' => h($_GET['state_id']),
   'position' => '',
 );
 
@@ -13,9 +17,10 @@ if (is_post_request()) {
   if(isset($_POST['state_id'])) { $territory['state_id'] = h($_POST['state_id']); }
   if(isset($_POST['position'])) { $territory['position'] = h($_POST['position']); }
 
-  $result = insert_state($territory);
+  $result = insert_territory($territory);
   if ($result === true) {
-    redirect_to('show.php?id=' . u($territory['id']));
+    $new_id = db_insert_id($db);
+    redirect_to('show.php?id=' . u($new_id));
   } else {
     $errors = $result;
   }
@@ -32,11 +37,9 @@ if (is_post_request()) {
 
   <?php echo display_errors($errors); ?>
 
-  <form action="edit.php?id=<?php echo $territory['id']; ?>" method="post">
+  <form action="new.php?state_id=<?php echo $territory['state_id']; ?>" method="post">
     Name:<br />
     <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
-    State ID:<br />
-    <input type="text" name="state_id" value="<?php echo $territory['state_id']; ?>" /><br />
     Position:<br />
     <input type="text" name="position" value="<?php echo $territory['position']; ?>" /><br />
     <br />

@@ -171,7 +171,7 @@
 
     if (is_blank($territory['state_id'])) {
       $errors[] = "State ID cannot be blank.";
-    } elseif (!has_length($territory['state_id'], array('min' => 2, 'max' => 255))) {
+    } elseif (!has_length($territory['state_id'], array('min' => 1, 'max' => 255))) {
       $errors[] = "State ID must be between 2 and 255 characters.";
     }
 
@@ -199,8 +199,10 @@
     $sql .= "VALUES (";
     $sql .= "'" . $territory['name'] . "',";
     $sql .= "'" . $territory['state_id'] . "',";
-    $sql .= "'" . $territory['position'] . "',";
+    $sql .= "'" . $territory['position'] . "'";
     $sql .= ");";
+
+    echo $sql;
 
     // For INSERT statments, $result is just true/false
     $result = db_query($db, $sql);

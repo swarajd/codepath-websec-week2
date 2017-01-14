@@ -12,7 +12,6 @@ $errors = array();
 
 if (is_post_request()) {
   if(isset($_POST['name'])) { $territory['name'] = h($_POST['name']); }
-  if(isset($_POST['state_id'])) { $territory['state_id'] = h($_POST['state_id']); }
   if(isset($_POST['position'])) { $territory['position'] = h($_POST['position']); }
 
   $result = update_territory($territory);
@@ -38,8 +37,6 @@ if (is_post_request()) {
   <form action="edit.php?id=<?php echo $territory['id']; ?>" method="post">
     Name:<br />
     <input type="text" name="name" value="<?php echo $territory['name']; ?>" /><br />
-    State ID:<br />
-    <input type="text" name="state_id" value="<?php echo $territory['state_id']; ?>" /><br />
     Position:<br />
     <input type="text" name="position" value="<?php echo $territory['position']; ?>" /><br />
     <br />
