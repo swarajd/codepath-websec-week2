@@ -55,13 +55,16 @@
       $errors[] = "Code cannot be blank.";
     } elseif (!has_length($state['code'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Code must be between 2 and 255 characters.";
+    } elseif (!has_valid_code_format($state['code'])) {
+      //MY CUSTOM VALIDATION
+      $errors[] = "Code must be valid format.";
     }
 
     if (is_blank($state['country_id'])) {
       $errors[] = "Country ID cannot be blank.";
     } elseif (!has_length($state['country_id'], array('min' => 1, 'max' => 255))) {
       $errors[] = "Country ID must be between 1 and 255 characters.";
-    } elseif (!has_valid_countryid_format($state['country_id'])) {
+    } elseif (!has_valid_numeric_format($state['country_id'])) {
       //MY CUSTOM VALIDATION
       $errors[] = "Country ID must be a valid format.";
     }
@@ -167,18 +170,27 @@
       $errors[] = "Name cannot be blank.";
     } elseif (!has_length($territory['name'], array('min' => 2, 'max' => 255))) {
       $errors[] = "Name must be between 2 and 255 characters.";
+    } else if (!has_valid_name_format($territory['name'])) {
+      //MY CUSTOM VALIDATION
+      $errors[] = "Name must be a valid format.";
     }
 
     if (is_blank($territory['state_id'])) {
       $errors[] = "State ID cannot be blank.";
     } elseif (!has_length($territory['state_id'], array('min' => 1, 'max' => 255))) {
-      $errors[] = "State ID must be between 2 and 255 characters.";
+      $errors[] = "State ID must be between 1 and 255 characters.";
+    } elseif (!has_valid_numeric_format($territory['state_id'])) {
+      //MY CUSTOM VALIDATION
+      $errors[] = "State ID must be a valid format.";
     }
 
     if (is_blank($territory['position'])) {
       $errors[] = "Position cannot be blank.";
     } elseif (!has_length($territory['position'], array('min' => 1, 'max' => 255))) {
       $errors[] = "Position must be between 1 and 255 characters.";
+    } elseif (!has_valid_numeric_format($territory['position'])) {
+      //MY CUSTOM VALIDATION
+      $errors[] = "Position must be a valid format.";
     }
 
     return $errors;

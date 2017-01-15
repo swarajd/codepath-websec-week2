@@ -30,8 +30,16 @@
     return preg_match('/^[0-9()\- ]+$/', $value) === 1;
   }
 
-  function has_valid_countryid_format($value) {
+  function has_valid_name_format($value) {
+    return preg_match('/^[a-zA-Z]+$', $value) === 1;
+  }
+
+  function has_valid_numeric_format($value) {
     return preg_match('/^[0-9]+$/', $value) === 1;
+  }
+
+  function has_valid_code_format($value) {
+    return preg_match('/^[A-Z]+$/', $value) === 1;
   }
 
 ?>
