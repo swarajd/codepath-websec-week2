@@ -31,7 +31,7 @@
   }
 
   function has_valid_name_format($value) {
-    return preg_match('/^[a-zA-Z]+$', $value) === 1;
+    return preg_match('/^[a-zA-Z]+$/', $value) === 1;
   }
 
   function has_valid_numeric_format($value) {

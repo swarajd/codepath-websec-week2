@@ -242,7 +242,7 @@
     $sql = "UPDATE territories SET ";
     $sql .= "name='" . $territory['name'] . "', ";
     $sql .= "state_id='" . $territory['state_id'] . "', ";
-    $sql .= "position='" . $territory['position'] . "', ";
+    $sql .= "position='" . $territory['position'] . "' ";
     $sql .= "WHERE id='" . $territory['id'] . "' ";
     $sql .= "LIMIT 1;";
 
