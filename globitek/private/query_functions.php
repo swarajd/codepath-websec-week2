@@ -87,7 +87,7 @@
     $sql .= "VALUES (";
     $sql .= "'" . $state['name'] . "',";
     $sql .= "'" . $state['code'] . "',";
-    $sql .= "'" . $state['country_id'] . "',";
+    $sql .= "'" . $state['country_id'] . "'";
     $sql .= ");";
 
     // For INSERT statments, $result is just true/false
@@ -116,7 +116,7 @@
     $sql = "UPDATE states SET ";
     $sql .= "name='" . $state['name'] . "', ";
     $sql .= "code='" . $state['code'] . "', ";
-    $sql .= "country_id='" . $state['country_id'] . "', ";
+    $sql .= "country_id='" . $state['country_id'] . "' ";
     $sql .= "WHERE id='" . $state['id'] . "' ";
     $sql .= "LIMIT 1;";
 

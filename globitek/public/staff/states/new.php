@@ -15,7 +15,8 @@ if (is_post_request()) {
 
   $result = insert_state($state);
   if ($result === true) {
-    redirect_to('show.php?id=' . u($state['id']));
+    $new_id = db_insert_id($db);
+    redirect_to('show.php?id=' . $new_id);
   } else {
     $errors = $result;
   }
